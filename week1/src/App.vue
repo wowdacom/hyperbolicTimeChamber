@@ -40,6 +40,9 @@ ul {
   margin: 0px;
   padding: 0px;
 }
+button:focus {
+  outline:0;
+  }
 
 .column-screen {
   width: 620px;

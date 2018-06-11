@@ -80,7 +80,7 @@ export default {
   name: 'TaskList',
   data () {
     return {
-      isEdit: false
+      isEdit: true
     }
   }
 }
@@ -257,6 +257,7 @@ export default {
         height: inherit;
         border: 0px;
         font-size: 24px;
+        cursor: pointer;
       }
       .btn-cancel {
         color: #D0021B;
