@@ -14,8 +14,8 @@
       </div>
       <div class="task-right">
         <ul>
-          <li><img src="http://via.placeholder.com/24x23" class="icon"></img></li>
-          <li><img src="http://via.placeholder.com/24x23" class="icon"></img></li>
+          <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
+          <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
         </ul>
       </div>
     </div> 
@@ -27,8 +27,8 @@
         </div>
         <div class="task-right">
           <ul>
-            <li><img src="http://via.placeholder.com/24x23" class="icon"></img></li>
-            <li><img src="http://via.placeholder.com/24x23" class="icon"></img></li>
+            <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
+            <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
           </ul>
         </div>
       </div>
@@ -37,7 +37,7 @@
           <li>
             <div class="icon-title deadline">
               <ul>
-                <li><img src="http://via.placeholder.com/15x17" class="icon"></img></li>
+                <li><img src="http://via.placeholder.com/15x17" class="icon"></li>
                 <li><h5>Dealine</h5></li>
               </ul>
               <div class="deadline-input">
@@ -48,7 +48,7 @@
           <li>
             <div class="icon-title file">
               <ul>
-                <li><img src="http://via.placeholder.com/15x17" class="icon"></img></li>
+                <li><img src="http://via.placeholder.com/15x17" class="icon"></li>
                 <li><h5>File</h5></li>
               </ul>
               <img class="add-file-icon" src="http://via.placeholder.com/35x35" alt="">
@@ -57,7 +57,7 @@
           <li>
             <div class="icon-title comment">
               <ul>
-                <li><img src="http://via.placeholder.com/15x17" class="icon"></img></li>
+                <li><img src="http://via.placeholder.com/15x17" class="icon"></li>
                 <li><h5>Comment</h5></li>
               </ul>
               <textarea style="border: none" placeholder="Type your memo here..."></textarea>
