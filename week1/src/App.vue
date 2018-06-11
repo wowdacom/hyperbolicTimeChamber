@@ -3,8 +3,7 @@
     
     <HelloWorld/>
     <AddTask/>
-    <TaskList v-for="item in 4" :key="item"></TaskList>
-    <!-- <img src="./assets/logo.png"> -->
+    <TaskList v-for="(item, index) in tasks" :task="item" :key="item.id" @expendEditBox="taskEdit(index, $event)"></TaskList>
   </div>
 </template>
 
@@ -19,6 +18,62 @@ export default {
     HelloWorld,
     AddTask,
     TaskList
+  },
+  data () {
+    return {
+      tasks:[
+        {
+        'id': '1',
+        'title': "Type Something Here...",
+        'deadline': "6/8",
+        'file': "pdf",
+        'Comment': "Practice to build a todo list",
+        "isEdit": false,
+        "isImportant": false
+        },
+        {
+        'id': '2',
+        'title': "Type Something Here...",
+        'deadline': "6/9",
+        'file': "pdf",
+        'Comment': "Practice to build a todo list",
+        "isEdit": false,
+        "isImportant": false
+        },
+        {
+        'id': '3',
+        'title': "Type Something Here...",
+        'deadline': "6/10",
+        'file': "pdf",
+        'Comment': "Practice to build a todo list",
+        "isEdit": false,
+        "isImportant": false
+        },
+        {
+        'id': '4',
+        'title': "Type Something Here...",
+        'deadline': "6/11",
+        'file': "pdf",
+        'Comment': "Practice to build a todo list",
+        "isEdit": false,
+        "isImportant": false
+        },
+        {
+        'id': '5',
+        'title': "Type Something Here...",
+        'deadline': "6/12",
+        'file': "pdf",
+        'Comment': "Practice to build a todo list",
+        "isEdit": false,
+        "isImportant": false
+        },
+      ]
+    }   
+  },
+  methods: {
+    taskEdit (whichTask, status) {
+      status === 'cancel' ? this.tasks[whichTask].isEdit = false : this.tasks[whichTask].isEdit = true
+    }
   }
 }
 </script>

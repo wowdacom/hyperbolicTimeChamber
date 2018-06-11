@@ -1,25 +1,6 @@
 <template> 
   <div class="task-list">
-    <div class="task-demo column-screen" v-if="isEdit">
-      <div class="task-left">
-        <div class="check-box"></div>
-        <div class="task-status">
-          <h2>Tpye Something Here...</h2>
-          <ul>
-            <li><img src="http://via.placeholder.com/16x18" class="icon"></li>
-            <li><img src="http://via.placeholder.com/16x18" class="icon"></li>
-            <li><img src="http://via.placeholder.com/16x18" class="icon"></li>
-          </ul>
-        </div>
-      </div>
-      <div class="task-right">
-        <ul>
-          <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
-          <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
-        </ul>
-      </div>
-    </div> 
-    <div class="task-edit column-screen" v-else>
+    <div class="task-edit column-screen" v-if="task.isEdit">
       <div class="task-title">
         <div class="task-left">
           <div class="check-box"></div>
@@ -27,8 +8,8 @@
         </div>
         <div class="task-right">
           <ul>
-            <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
-            <li><img src="http://via.placeholder.com/24x23" class="icon"></li>
+            <li><img :src="getImgUrl('star', task['isImportant'])" class="icon"></li>
+            <li><img :src="getImgUrl('pencil', task['isEdit'])" class="icon"></li>
           </ul>
         </div>
       </div>
@@ -66,21 +47,62 @@
         </ul>
       </div>
       <div class="task-button">
-        <button class="btn-cancel">Cancel</button>
+        <button class="btn-cancel" @click="startEdit('cancel')">Cancel</button>
         <button class="btn-add-task">Add Task</button>
       </div>
     </div>
-    
+    <div class="task-demo column-screen"  v-else>
+      <div class="task-left">
+        <div class="check-box"></div>
+        <div class="task-status">
+          <h2>{{ task.title }}</h2>
+          <ul>
+            <li><img src="../assets/calendar.svg" class="icon"></li>
+            <li><img src="../assets/file.svg" class="icon"><span>{{ task.deadline }}</span></li>
+            <li><img src="../assets/comment.svg" class="icon"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="task-right">
+        <ul>
+          <li><img :src="getImgUrl('star', task['isImportant'])" class="icon"></li>
+          <li><img :src="getImgUrl('pencil', task['isEdit'])" class="icon" @click="startEdit('expand')"></li>
+        </ul>
+      </div>
+    </div> 
   </div>
   
 </template>
 
 <script>
+import starClicked from "@/assets/starClicked.svg"
+import star from "@/assets/star.svg"
+import pencilClicked from "@/assets/pencilClicked.svg"
+import pencil from "@/assets/pencil.svg"
+
 export default {
   name: 'TaskList',
+  props: ['task'],
   data () {
     return {
-      isEdit: true
+      isEdit: true,
+      img: {
+        starClicked,
+        star,
+        pencil,
+        pencilClicked
+      }
+    }
+  },
+  methods: {
+    getImgUrl(name, isClicked) {
+      if (isClicked) {
+        return this.img[name + "Clicked"]
+      }
+      return this.img[name]
+    },
+    startEdit(status){
+      this.$emit('expendEditBox', status)
     }
   }
 }
@@ -118,10 +140,25 @@ export default {
         ul {
           padding: 0px;
           margin: 15px 0px 0px 0px;
+          height: 19px;
+          position: relative;
           li {
+            color: #757575;
+            font-size: 16px;      
             list-style: none;
             display: inline-block;
             margin-right: 16px;
+            img {
+              width: 16px;
+              height: 18px;
+              position: relative;
+              /* Adjust these values accordingly */
+              top: 3px;
+              left: 0px;
+            }
+            span {
+              margin-left: 8px;
+            }
           }
         }
       }
@@ -136,6 +173,10 @@ export default {
           display: inline-block;
           list-style: none;
           margin-left: 32px;
+          img {
+              width: 24px;
+              height: 23px;
+          }
         }
       }
     }
@@ -151,7 +192,6 @@ export default {
       align-content: space-between;
       height: 76px;
       border-radius: 5px 5px 0 0 ;
-
       .task-left {
         width: 70%;
         vertical-align: top;
@@ -181,6 +221,10 @@ export default {
             display: inline-block;
             list-style: none;
             margin-left: 32px;
+            img {
+              width: 24px;
+              height: 23px;
+            }
           }
         }
       }
