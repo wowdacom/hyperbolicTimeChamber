@@ -25,6 +25,10 @@ export default {
 html, body {
   margin: 0px;
 }
+ul {
+  margin: 0px;
+  padding: 0px;
+}
 #app {
   
 }
