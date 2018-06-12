@@ -2,8 +2,8 @@
   <div id="app">
     
     <HelloWorld/>
-    <AddTask/>
-    <TaskList v-for="(item, index) in tasks" :task="item" :key="item.id" @expendEditBox="taskEdit(index, $event)"></TaskList>
+    <AddTask  @updateList="addNewTask($event)"/>
+    <TaskList v-for="(item, index) in tasks" :task="item" :key="item.id" @checkUp="correctTheBox(index)" @expendEditBox="taskEdit(index, $event)" @markStar="switchStarLight(index)"></TaskList>
   </div>
 </template>
 
@@ -29,50 +29,32 @@ export default {
         'file': "pdf",
         'Comment': "Practice to build a todo list",
         "isEdit": false,
-        "isImportant": false
-        },
-        {
-        'id': '2',
-        'title': "Type Something Here...",
-        'deadline': "6/9",
-        'file': "pdf",
-        'Comment': "Practice to build a todo list",
-        "isEdit": false,
-        "isImportant": false
-        },
-        {
-        'id': '3',
-        'title': "Type Something Here...",
-        'deadline': "6/10",
-        'file': "pdf",
-        'Comment': "Practice to build a todo list",
-        "isEdit": false,
-        "isImportant": false
-        },
-        {
-        'id': '4',
-        'title': "Type Something Here...",
-        'deadline': "6/11",
-        'file': "pdf",
-        'Comment': "Practice to build a todo list",
-        "isEdit": false,
-        "isImportant": false
-        },
-        {
-        'id': '5',
-        'title': "Type Something Here...",
-        'deadline': "6/12",
-        'file': "pdf",
-        'Comment': "Practice to build a todo list",
-        "isEdit": false,
-        "isImportant": false
-        },
+        "isImportant": false,
+        "isDone": false
+        }
       ]
     }   
   },
   methods: {
     taskEdit (whichTask, status) {
       status === 'cancel' ? this.tasks[whichTask].isEdit = false : this.tasks[whichTask].isEdit = true
+    },
+    switchStarLight (whichTask) {
+      this.tasks[whichTask].isImportant = !this.tasks[whichTask].isImportant
+    },
+    correctTheBox (whichTask) {
+      this.tasks[whichTask].isDone = !this.tasks[whichTask].isDone
+    },
+    addNewTask (newTask) {
+      this.tasks.push(newTask)
+    }
+  },
+  computed: {
+    bobbleUpImportant(){
+      this.tasks = this.tasks.sort((item, item2)=>{
+        return item.isImportant > item2.isImportant
+      })
+      return this.tasks
     }
   }
 }

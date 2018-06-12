@@ -1,15 +1,15 @@
 <template> 
   <div class="task-list">
     <div class="task-edit column-screen" v-if="task.isEdit">
-      <div class="task-title">
+      <div class="task-title"  :class="{ important: task['isImportant']  }" >
         <div class="task-left">
-          <div class="check-box"></div>
-          <input type="text" class="task-title-insert" placeholder="Type Something Here...">
+          <img class="check-box" :src="getImgUrl('check', task['isDone'])" @click="checkItDone()">
+          <input v-model="task['title']" type="text" class="task-title-insert"  :class="{ important: task['isImportant']  }"  placeholder="Type Something Here...">
         </div>
         <div class="task-right">
           <ul>
-            <li><img :src="getImgUrl('star', task['isImportant'])" class="icon"></li>
-            <li><img :src="getImgUrl('pencil', task['isEdit'])" class="icon"></li>
+            <li><img :src="getImgUrl('star', task['isImportant'])" class="icon" @click="markItImportant()"></li>
+            <li><img :src="getImgUrl('pencil', task['isEdit'])" class="icon" @click="startEdit('cancel')"></li>
           </ul>
         </div>
       </div>
@@ -18,7 +18,7 @@
           <li>
             <div class="icon-title deadline">
               <ul>
-                <li><img src="http://via.placeholder.com/15x17" class="icon"></li>
+                <li><img src="../assets/calendar.svg" class="icon"></li>
                 <li><h5>Dealine</h5></li>
               </ul>
               <div class="deadline-input">
@@ -29,7 +29,7 @@
           <li>
             <div class="icon-title file">
               <ul>
-                <li><img src="http://via.placeholder.com/15x17" class="icon"></li>
+                <li><img src="../assets/file.svg" class="icon"></li>
                 <li><h5>File</h5></li>
               </ul>
               <img class="add-file-icon" src="http://via.placeholder.com/35x35" alt="">
@@ -38,22 +38,23 @@
           <li>
             <div class="icon-title comment">
               <ul>
-                <li><img src="http://via.placeholder.com/15x17" class="icon"></li>
+                <li><img src="../assets/comment.svg" class="icon"></li>
                 <li><h5>Comment</h5></li>
               </ul>
-              <textarea style="border: none" placeholder="Type your memo here..."></textarea>
+              <textarea v-model="task['Comment']" style="border: none" placeholder="Type your memo here..."></textarea>
             </div>
           </li>
         </ul>
       </div>
       <div class="task-button">
         <button class="btn-cancel" @click="startEdit('cancel')">Cancel</button>
-        <button class="btn-add-task">Add Task</button>
+        <button class="btn-add-task">Save</button>
       </div>
     </div>
-    <div class="task-demo column-screen"  v-else>
+
+    <div class="task-demo column-screen" :class="{ important: task['isImportant']  }"  v-else>
       <div class="task-left">
-        <div class="check-box"></div>
+        <img class="check-box" :src="getImgUrl('check', task['isDone'])" @click="checkItDone()">
         <div class="task-status">
           <h2>{{ task.title }}</h2>
           <ul>
@@ -65,7 +66,7 @@
       </div>
       <div class="task-right">
         <ul>
-          <li><img :src="getImgUrl('star', task['isImportant'])" class="icon"></li>
+          <li><img :src="getImgUrl('star', task['isImportant'])" class="icon" @click="markItImportant()"></li>
           <li><img :src="getImgUrl('pencil', task['isEdit'])" class="icon" @click="startEdit('expand')"></li>
         </ul>
       </div>
@@ -79,6 +80,8 @@ import starClicked from "@/assets/starClicked.svg"
 import star from "@/assets/star.svg"
 import pencilClicked from "@/assets/pencilClicked.svg"
 import pencil from "@/assets/pencil.svg"
+import checkClicked from "@/assets/checkClicked.svg"
+import check from "@/assets/check.svg"
 
 export default {
   name: 'TaskList',
@@ -90,7 +93,9 @@ export default {
         starClicked,
         star,
         pencil,
-        pencilClicked
+        pencilClicked,
+        check,
+        checkClicked
       }
     }
   },
@@ -103,6 +108,12 @@ export default {
     },
     startEdit(status){
       this.$emit('expendEditBox', status)
+    },
+    markItImportant(){    
+      this.$emit('markStar')
+    },
+    checkItDone(){
+      this.$emit('checkUp')
     }
   }
 }
@@ -111,6 +122,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .task-list {
+
   .check-box {
         width: 24px;
         height: 24px;
@@ -119,6 +131,7 @@ export default {
         border-radius: 2px;
         vertical-align: inherit;
         margin-right: 16px;
+        cursor: pointer;
   }
   .task-demo {
   margin-top: 24px;
@@ -176,6 +189,7 @@ export default {
           img {
               width: 24px;
               height: 23px;
+              cursor: pointer;
           }
         }
       }
@@ -196,7 +210,7 @@ export default {
         width: 70%;
         vertical-align: top;
         .task-title-insert {
-          background-color: #F2F2F2;
+          background-color: inherit;
           font-size: 24px;
           &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
             color: #000000;
@@ -224,6 +238,7 @@ export default {
             img {
               width: 24px;
               height: 23px;
+              cursor: pointer;
             }
           }
         }
@@ -238,6 +253,10 @@ export default {
           list-style: none;
           margin-bottom: 22px;
           .icon-title {
+            .icon {
+              width: 15px;
+              height: 17px;
+            }
             ul {
               li {
                 display: inline-block;
@@ -319,6 +338,10 @@ export default {
         right: 0;
       }
     }
+  }
+
+  .important {
+    background-color: #FFF2DC;
   }
 }
 </style>

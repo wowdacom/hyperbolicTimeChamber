@@ -4,7 +4,7 @@
     <div class="task-title">
       <div class="task-left">
         <div class="check-box"></div>
-        <input type="text" class="task-title-insert" placeholder="Type Something Here...">
+        <input type="text" class="task-title-insert" placeholder="What's on your mind..." v-model="currentTask.title" >
       </div>
       <div class="task-right">
         <ul>
@@ -22,7 +22,7 @@
               <li><h5>Dealine</h5></li>
             </ul>
             <div class="deadline-input">
-              <input type="text" placeholder="yyyy/mm/dd"><input type="text" placeholder="hh:mm">
+              <input type="text" v-model="currentTask.deadlineDate" placeholder="yyyy/mm/dd"><input type="text" v-model="currentTask.deadlineTime" placeholder="hh:mm">
             </div>
           </div>
         </li>
@@ -41,14 +41,14 @@
               <li><img src="http://via.placeholder.com/15x17" class="icon"></li>
               <li><h5>Comment</h5></li>
             </ul>
-            <textarea style="border: none" placeholder="Type your memo here..."></textarea>
+            <textarea v-model="currentTask.Comment" style="border: none" placeholder="Type your memo here..."></textarea>
           </div>
         </li>
       </ul>
     </div>
     <div class="task-button">
-      <button class="btn-cancel" v-on:click="contractedFromEdit">Cancel</button>
-      <button class="btn-add-task">Add Task</button>
+      <button class="btn-cancel" v-on:click="contractedFromEdit()">Cancel</button>
+      <button class="btn-add-task" v-on:click="addNewTask()">Add Task</button>
     </div>
   </div>
   <input class="add-task column-screen" placeholder="Add Task" v-on:click.once="expandToEdit" v-else>
@@ -59,8 +59,23 @@ export default {
   name: 'AddTask',
   data () {
     return {
-      editBoxIsExpand: false
+      editBoxIsExpand: false,
+      currentTask: {
+        'id': '10',
+        'title': "",
+        'deadlineDate': "2018/6/8",
+        'deadlineTime': '00:00',
+        'file': "pdf",
+        'Comment': "Practice to build a todo list",
+        "isEdit": false,
+        "isImportant": false,
+        "isDone": false
+      }
     }
+  },
+  mounted () {
+    this.resetCurrentDate()
+    
   },
   methods: {
     expandToEdit () {
@@ -72,6 +87,16 @@ export default {
     },
     contractedFromEdit () {
       this.editBoxIsExpand = false
+    },
+    resetCurrentDate () {
+      var today = new Date();
+      this.currentTask.deadlineDate = today.getFullYear() + '/' + (today.getMonth() + 1) + '/' + today.getDate();
+      this.currentTask.deadlineTime = today.getHours() + ':' + today.getMinutes();
+    },
+    addNewTask () {
+      this.$emit('updateList', this.currentTask)
+      this.editBoxIsExpand = false
+      this.resetCurrentDate()
     }
   }
 }
