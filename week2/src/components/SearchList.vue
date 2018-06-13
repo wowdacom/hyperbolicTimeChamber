@@ -16,8 +16,8 @@
         <div class="Date">
           <div class="form-title">Date<img src="" alt="" class="icon"></div>
           <form action="">
-            from: <input class="date-from" type=""><br>
-            to: <input class="date-to" type="">
+            <span>from </span><input class="date-from" type="" placeholder="2018/5/24"><br>
+            <span>to </span><input class="date-to" type="" placeholder="6/1">
           </form>
         </div>
       </li>
@@ -25,11 +25,7 @@
         <div class="Categories">
           <div class="form-title">Categories<img src="" alt="" class="icon"></div>
           <ul>
-            <li><img src="http://via.placeholder.com/16x16"> All</li>
-            <li><img src="http://via.placeholder.com/16x16"> Entertainment</li>
-            <li><img src="http://via.placeholder.com/16x16"> Food</li>
-            <li><img src="http://via.placeholder.com/16x16"> Learning</li>
-            <li><img src="http://via.placeholder.com/16x16"> Outdoors</li>
+            <li v-for="(item, key) in Categories" :key="key"><div class="icon" :class="{isSprite: item}"></div> {{ key }}</li>
           </ul>
         </div>
       </li>
@@ -43,7 +39,14 @@ export default {
   name: 'search-list',
   data () {
     return {
-      msg: ''
+      msg: '',
+      Categories: {
+        'All': false,
+        'Entertainment': false,
+        'Food': false,
+        'Learning': true,
+        'Outdoors': false
+      }
     }
   }
 }
@@ -52,11 +55,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .search-list {
-  ul {
-    li {
-      list-style: none;
+   & > ul {
+    & > li {
       background: #EBEBEB;
       padding: 24px 40px;
+      border-bottom: 1px solid #D7D7D7;
       .form-title {
         font-size: 20px;
         margin-bottom: 24px;
@@ -78,12 +81,44 @@ export default {
       }
       .Date {
         @media screen and (max-width: 425px) {
-          
+          form {           
+            span {
+              display: inline-block;
+              width: 20%;
+              margin-bottom: 8px;
+              padding-right: 13px;
+              text-align: right;
+            }
+            input {
+              width: 80%;
+              height: 40px;
+              margin-bottom: 8px;
+              padding: 11px;
+
+            }
+          }
         }
       }
       .Categories {
         @media screen and (max-width: 425px) {
-          
+          ul {
+            li {
+              padding: 0px;
+              margin-bottom: 8px;
+              
+              div {
+                width: 16px;
+                height: 16px;
+                display: inline-block;
+                background: url("../assets/check.png") no-repeat ;
+                background-size: cover;
+                background-position: -16px 0px;
+              }
+              .isSprite {
+                background-position: 0px 0px;
+              }
+            }
+          }
         }
       }
       
