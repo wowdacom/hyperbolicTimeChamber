@@ -2,7 +2,9 @@
   <div id="app">
     
     <HelloWorld/>
-    <AddTask  @updateList="addNewTask($event)"/>
+    <transition mode="out-in" name="fade">
+      <AddTask  @updateList="addNewTask($event)"/>
+    </transition>
     <TaskList v-for="(item, index) in tasks" :task="item" :key="item.id" @checkUp="correctTheBox(index)" @expendEditBox="taskEdit(index, $event)" @markStar="switchStarLight(index)"></TaskList>
   </div>
 </template>
@@ -35,28 +37,40 @@ export default {
       ]
     }   
   },
+  mounted () {
+    this.taskShow = this.tasks
+  },
   methods: {
     taskEdit (whichTask, status) {
       status === 'cancel' ? this.tasks[whichTask].isEdit = false : this.tasks[whichTask].isEdit = true
     },
     switchStarLight (whichTask) {
-      this.tasks[whichTask].isImportant = !this.tasks[whichTask].isImportant
+      this.$set(this.tasks[whichTask], 'isImportant', !this.tasks[whichTask].isImportant)
+      this.tasksSorted()
     },
     correctTheBox (whichTask) {
       this.tasks[whichTask].isDone = !this.tasks[whichTask].isDone
     },
     addNewTask (newTask) {
-      this.tasks.push(newTask)
+      this.$set(this.tasks, this.tasks.length, newTask)
+    },
+    tasksSorted () {
+      console.log("kkkkk")
+      this.tasks = this.tasks.sort((item, item2)=>{
+        return item2.isImportant > item.isImportant
+      })
     }
   },
-  computed: {
-    bobbleUpImportant(){
-      this.tasks = this.tasks.sort((item, item2)=>{
-        return item.isImportant > item2.isImportant
-      })
-      return this.tasks
-    }
-  }
+  // watch: {
+  //   tasks: {
+  //     handler: function(){
+  //       console.log("hahaaaaa")
+        
+        
+  //     },
+  //     deep: true
+  //   }
+  // }
 }
 </script>
 
@@ -85,7 +99,19 @@ button:focus {
   width: 620px;
   margin: 0 auto;
 }
-#app {
-  padding-bottom: 319px; 
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
 }
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+}
+
+
+#app {
+  padding-bottom: 319px;
+
+  
+}
+
 </style>

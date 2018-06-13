@@ -1,5 +1,6 @@
 <template> 
   <div class="task-list">
+    
     <div class="task-edit column-screen" v-if="task.isEdit">
       <div class="task-title"  :class="{ important: task['isImportant']  }" >
         <div class="task-left">
@@ -71,6 +72,7 @@
         </ul>
       </div>
     </div> 
+
   </div>
   
 </template>
@@ -88,6 +90,7 @@ export default {
   props: ['task'],
   data () {
     return {
+      show: true,
       isEdit: true,
       img: {
         starClicked,
@@ -121,7 +124,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
+
 .task-list {
+  
 
   .check-box {
         width: 24px;
