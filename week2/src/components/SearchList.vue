@@ -1,32 +1,38 @@
 <template>
   <div class="search-list">
     <ul>
-      <li>
-        <div class="Location">
-          <div class="form-title">Location <img src="" alt="" class="icon"></div>
-          <select>
-            <option>American</option>
-            <option selected="selected">Taiwan</option>
-            <option>Japen</option>
-            <option>U.K.</option>
-          </select>
+      <li :class="{isSprite: expendControl['Location']}">
+        <div class="Location grid-mobile">
+          <div class="form-title">Location <div src="../assets/expend.png" alt="" class="icon" @click="expendControl['Location'] = !expendControl['Location']" ></div></div>
+          <div v-if="expendControl['Location']">
+            <select>
+              <option>American</option>
+              <option selected="selected">Taiwan</option>
+              <option>Japen</option>
+              <option>U.K.</option>
+            </select>
+          </div>
         </div>
       </li>
-      <li>
-        <div class="Date">
-          <div class="form-title">Date<img src="" alt="" class="icon"></div>
+      <li :class="{isSprite: expendControl['Date']}">
+        <div class="Date grid-mobile">
+          <div class="form-title">Date <div src="../assets/expend.png" alt="" class="icon" @click="expendControl['Date'] = !expendControl['Date']" ></div></div>
+          <div v-if="expendControl['Date']">
           <form action="">
             <span>from </span><input class="date-from" type="" placeholder="2018/5/24"><br>
             <span>to </span><input class="date-to" type="" placeholder="6/1">
           </form>
+          </div>
         </div>
       </li>
-      <li>
-        <div class="Categories">
-          <div class="form-title">Categories<img src="" alt="" class="icon"></div>
-          <ul>
-            <li v-for="(item, key) in Categories" :key="key"><div class="icon" :class="{isSprite: item}"></div> {{ key }}</li>
-          </ul>
+      <li :class="{isSprite: expendControl['Categories']}">
+        <div class="Categories grid-mobile">
+          <div class="form-title">Categories <div src="../assets/expend.png" alt="" class="icon" @click="expendControl['Categories'] = !expendControl['Categories']" ></div></div>
+          <div v-if="expendControl['Categories']">
+            <ul>
+              <li v-for="(item, key) in Categories" :key="key"><div class="icon" :class="{isSprite: item}"></div> {{ key }}</li>
+            </ul>
+          </div>
         </div>
       </li>
     </ul>
@@ -40,6 +46,11 @@ export default {
   data () {
     return {
       msg: '',
+      expendControl: {
+        'Location': false,
+        'Date': false,
+        'Categories': false
+      },
       Categories: {
         'All': false,
         'Entertainment': false,
@@ -55,18 +66,44 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .search-list {
+  background-color: #fff;
    & > ul {
-    & > li {
-      background: #EBEBEB;
-      padding: 24px 40px;
-      border-bottom: 1px solid #D7D7D7;
+    .isSprite {
+      background-color: #EBEBEB;
       .form-title {
-        font-size: 20px;
         margin-bottom: 24px;
       }
+      .icon {
+        background-position: -16px 0px;
+      }     
+    }
+    & > li {
+      background: #D7D7D7;
+      padding: 24px 0px;
+      border-bottom: 1px solid #9B9B9B;
+      
+      .form-title {
+        font-size: 20px;
+        margin: 0px;
+        position: relative;
+        font-weight: 900;
+        .icon {
+          display: inline-block;
+          width: 17px;
+          height: 17px;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);       
+          background: url("../assets/expend.png") no-repeat ;
+          background-size: cover;
+          background-position: 0px 0px;
+        }
+      }
+      
       .Location {
         @media screen and (max-width: 425px) {
-          height: 136px;
+          // height: 136px;
         }
         select {
           display: block;

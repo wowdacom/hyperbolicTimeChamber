@@ -4,8 +4,9 @@
       HaveFun
     </div>
     <div class="search-bar">
-      <img src="../assets/magnifying-glass.svg"><input type="text" value="Explore your own activities">
+      <img src="../assets/magnifying-glass.svg"><input class="grid-mobile" type="text" value="Explore your own activities">
     </div>
+    
   </div>
   
 </template>
@@ -24,6 +25,7 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="scss" scoped>
 .hello {
+  
   .logo {
   @media screen and (max-width: 425px) {
     line-height: 69px;
@@ -53,12 +55,10 @@ export default {
     }
     input {
       @media screen and (max-width: 425px) {
-      width: 80%;
       height: 42.5px;  
       padding: 0px 44px;
       font-size: 13.5px;
       display: block;
-      margin: 0 auto;
       background-color: #EBEBEB;
       border: 0px;
       border-bottom: solid 2px black;
