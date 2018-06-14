@@ -1,8 +1,19 @@
 <template>
   <div id="app">   
     <HelloWorld/>
-    <SearchList/>
-    <CardBox />
+    <div class="main-page-left">
+      <SearchList/>
+    </div>
+    <div class="main-page-right">
+      <div class="result grid-mobile">
+        Showing <span>{{ result }}</span> results by...
+        <ul>
+          <li>Koahsiung<img src="./assets/delete.png" alt="" class="icon"></li>
+          <li>Exhibition<img src="./assets/delete.png" alt="" class="icon"></li>
+        </ul>
+      </div>
+       <CardBox/>
+    </div>
   </div>
 </template>
 
@@ -13,6 +24,11 @@ import CardBox from './components/CardBox'
 
 export default {
   name: 'App',
+  data () {
+    return {
+      result: 15
+    }
+  },
   components: {
     HelloWorld,
     SearchList,
@@ -21,7 +37,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 * {
   box-sizing: border-box;
 }
@@ -37,10 +53,55 @@ li {
   list-style: none;
 }
 #app {
-
+  .main-page-left {
+    @media screen and (min-width: 426px) and (max-width: 768px) {
+      float: left;
+      width: 43%;
+    }
+    @media screen and (min-width: 769px) {
+      float: left;
+      width: 43%;
+    }
+  }
+  .main-page-right {
+    @media screen and (min-width: 426px) and (max-width: 768px) {
+      float: right;
+      width: 57%;
+      .result {
+        font-size: 24px;
+        margin-top: 29px;
+        span {
+          color: #9013FE;
+        }
+      }
+      ul {
+        margin-top: 8px;
+        li {
+          display: inline-block;
+          border: solid 1px #9013FE;
+          border-radius: 100px;
+          color: #9013FE;
+          font-size: 16px;
+          padding: 8px 16px;
+          img {
+            width: 14px;
+            height: 14px;
+            margin-left: 8px;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+    @media screen and (min-width: 769px) {
+      float: right;
+      width: 57%;
+    }
+    
+  } 
 }
 .grid-mobile {
   width: 80%;
   margin: 0 auto;
 }
+
 </style>

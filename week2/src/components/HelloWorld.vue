@@ -51,7 +51,7 @@ export default {
       box-shadow: 0 5px 10px 0 #D7D7D7;
     }
     @media screen and (min-width: 426px) {
-      opacity: 0; 
+      display: none; 
     }
     input {
       @media screen and (max-width: 425px) {

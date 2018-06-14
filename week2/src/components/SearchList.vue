@@ -47,9 +47,9 @@ export default {
     return {
       msg: '',
       expendControl: {
-        'Location': false,
-        'Date': false,
-        'Categories': false
+        'Location': true,
+        'Date': true,
+        'Categories': true
       },
       Categories: {
         'All': false,
@@ -59,6 +59,29 @@ export default {
         'Outdoors': false
       }
     }
+  },
+  methods: {
+    contractAllList(){
+      var vm = this
+      var width = window.innerWidth
+      || document.documentElement.clientWidth
+      || document.body.clientWidth;
+
+      var height = window.innerHeight
+      || document.documentElement.clientHeight
+      || document.body.clientHeight;
+      console.log(width)
+      if(width <= 425) {
+        vm.expendControl = {
+          'Location': false,
+          'Date': false,
+          'Categories': false
+        }
+      }
+    }
+  },
+  mounted () {
+    this.contractAllList()
   }
 }
 </script>
@@ -88,6 +111,9 @@ export default {
         position: relative;
         font-weight: 900;
         .icon {
+           @media screen and (min-width: 426px) {
+            display: none;
+          }
           display: inline-block;
           width: 17px;
           height: 17px;
