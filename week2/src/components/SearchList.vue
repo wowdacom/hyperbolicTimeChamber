@@ -128,9 +128,6 @@ export default {
       }
       
       .Location {
-        @media screen and (max-width: 425px) {
-          // height: 136px;
-        }
         select {
           display: block;
           margin: 0 auto;
@@ -143,8 +140,7 @@ export default {
         }
       }
       .Date {
-        @media screen and (max-width: 425px) {
-          form {           
+        form {           
             span {
               display: inline-block;
               width: 20%;
@@ -160,11 +156,9 @@ export default {
 
             }
           }
-        }
       }
       .Categories {
-        @media screen and (max-width: 425px) {
-          ul {
+        ul {
             li {
               padding: 0px;
               margin-bottom: 8px;
@@ -182,7 +176,6 @@ export default {
               }
             }
           }
-        }
       }
       
     }

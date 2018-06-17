@@ -59,16 +59,29 @@ export default {
 <style lang="scss" scoped>
 .card-box {
   .card {
+    @media screen and (min-width: 769px) {
+      height: 220px;
+      clear: left;
+    }
     height: 414px;
     background-color: #EBEBEB ;
     margin-top: 25px;
     margin-bottom: 25px;
     
     img {
+      @media screen and (min-width: 769px) {
+        height: 100%;
+        width: 220px;
+        float: left;
+      }
       width: 100%;
       height: 196px;
     }
     .card-content {
+      @media screen and (min-width: 769px) {
+        float: left;
+        width: 50%;
+      }
       padding: 20px 24px;
       .card-title {
         color: #9013FE;
