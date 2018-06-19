@@ -12,7 +12,7 @@
           <li>Exhibition<img src="./assets/delete.png" alt="" class="icon"></li>
         </ul>
       </div>
-       <CardBox/>
+      <CardBox />
     </div>
   </div>
 </template>
@@ -33,6 +33,8 @@ export default {
     HelloWorld,
     SearchList,
     CardBox
+  },
+  methods: {
   }
 }
 </script>

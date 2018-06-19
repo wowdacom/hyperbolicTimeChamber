@@ -1,14 +1,14 @@
 <template>
   <div class="card-box">
-    <div class="card grid-mobile" v-for="(item, index) in 2" :key="index">
-      <img src="http://via.placeholder.com/350x180">
+    <div class="card grid-mobile" v-for="item in records" :key="item.Id">
+      <img :src="item.Picture1">
       <div class="card-content">
-        <div class="card-title">Kogi Cosby sweater.</div>
-        <div class="card-describe">Lorem Ipsum is simply dummy Lorem Ipsum is simply dummy</div>
-        <div class="card-organizer">Ethan Foster<span class="tag">Entertainment</span></div>
+        <div class="card-title">{{ item.Name }}</div>
+        <div class="card-describe">{{ item.Description }}</div>
+        <div class="card-organizer">{{ item.Picdescribe1 }}<span v-if="item.Ticketinfo" class="tag"> {{ item.Ticketinfo }}</span></div>
         <ul class="card-locate-date">
-          <li><img class="icon" src="../assets/location.png">Kaohsiung City</li>
-          <li><img class="icon" src="../assets/calendar.png">2018/5/24 - 2018/5/31</li>
+          <li><img class="icon" src="../assets/location.png">{{ item.Add }}</li>
+          <li><img class="icon" src="../assets/calendar.png">{{ item.Opentime }}</li>
         </ul>
       </div>     
     </div>
@@ -23,12 +23,16 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'search-list',
   data () {
     return {
       currentPage: 0,
-      pages: [true, false, false, false, false]
+      pages: [true, false, false, false, false],
+      records: [],
+      result: 0
     }
   },
   methods: {
@@ -51,7 +55,27 @@ export default {
         console.log("there is something wrong!")
       }
     }
-  }
+  },
+  mounted () {
+    var vm = this
+    axios.get('https://data.kcg.gov.tw/api/action/datastore_search?resource_id=92290ee5-6e61-456f-80c0-249eae2fcc97')
+      .then(function (response) {
+        vm.records = response.data.result.records
+        vm.result = response.data.result.records.length
+        console.log(response.data.result.records);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    // async function getUser() {
+    //   try {
+    //     const response = await axios.get('/user?ID=12345');
+    //     console.log(response);
+    //   } catch (error) {
+    //     console.error(error);
+    //   }
+    // }
+  },
 }
 </script>
 
@@ -89,7 +113,10 @@ export default {
         font-weight: 900;
       }
       .card-describe {
-        
+        overflow : hidden;
+        text-overflow : ellipsis;
+        white-space : nowrap;
+        width : 240px;
       }
       .card-organizer {
         font-weight: 900;
