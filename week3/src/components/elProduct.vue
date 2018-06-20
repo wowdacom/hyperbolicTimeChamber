@@ -7,7 +7,7 @@
 <script>
 export default {
   name: 'product',
-  data () {
+  data: function () {
     return {}
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <main-nav></main-nav>
-    <transition name="fade" mode="out-in" v-on:after-enter="afterEnter" appear>
+    <transition name="fade" mode="out-in" appear>
       <router-view/>
     </transition>
   </div>
@@ -25,6 +25,7 @@ export default {
 html, body {
   margin: 0px;
   background-color: #F2F2F2;
+  min-height: 100vh;
 }
 ul {
   margin: 0px;
@@ -36,6 +37,12 @@ li {
 a {
   color: inherit;
   text-decoration: none;
+}
+h1, h2, h3, h4, h5, p {
+  margin: 0px;
+}
+input:focus, textarea:focus select:focus {
+  outline: none;
 }
 .grid-screen {
   padding: 0 24px;

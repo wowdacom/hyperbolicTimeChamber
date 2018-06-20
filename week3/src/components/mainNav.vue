@@ -14,7 +14,7 @@
 <script>
 export default {
   name: 'main-nav',
-  data () {
+  data: function () {
     return {
       msg: 'Welcome to Your Vue.js App',
       identity: 'ADMIN'
@@ -35,6 +35,7 @@ export default {
     width: 217px;
     font-size: 24px;
     text-align: left;
+    margin-left: 0px;
   }
   .auto {
     float: right;

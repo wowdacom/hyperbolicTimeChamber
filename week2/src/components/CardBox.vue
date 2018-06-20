@@ -1,6 +1,6 @@
 <template>
   <div class="card-box">
-    <div class="card grid-mobile" v-for="item in records" :key="item.Id">
+    <div class="card grid-mobile" v-for="item in whichPages" :key="item.Id">
       <img :src="item.Picture1">
       <div class="card-content">
         <div class="card-title">{{ item.Name }}</div>
@@ -30,12 +30,20 @@ export default {
   data () {
     return {
       currentPage: 0,
-      pages: [true, false, false, false, false],
+      pages: [],
       records: [],
-      result: 0
+      result: 0,
+      itemsPerPage: 5,
+      rangeOfPages: 5
     }
   },
   methods: {
+    initPaging () {
+      this.pages.length = this.records.length / this.itemsPerPage
+      this.pages.fill(false, 0, this.pages.length)
+      this.pages[0] = true
+      console.log(this.pages)
+    },
     paging (whichPage) {
       this.pages.fill(false, 0, this.pages.length)
       this.currentPage = whichPage
@@ -62,20 +70,26 @@ export default {
       .then(function (response) {
         vm.records = response.data.result.records
         vm.result = response.data.result.records.length
-        console.log(response.data.result.records);
+        vm.initPaging()
       })
       .catch(function (error) {
         console.log(error);
       });
-    // async function getUser() {
-    //   try {
-    //     const response = await axios.get('/user?ID=12345');
-    //     console.log(response);
-    //   } catch (error) {
-    //     console.error(error);
-    //   }
-    // }
   },
+  computed: {
+    whichPages () {
+      var pageShow = []
+      var pageStart = this.currentPage*this.itemsPerPage, pageEnd = (this.currentPage + 1)*this.itemsPerPage 
+      pageShow = this.records.slice(pageStart, pageEnd)
+      return pageShow
+    },
+    whichRangePages () {
+      // var rangePageShow = []
+      // var whichRange = 0
+      // var pageStart = this.
+      // var rangePageShow = this.pages.slice(whichRange, )
+    }
+  }
 }
 </script>
 

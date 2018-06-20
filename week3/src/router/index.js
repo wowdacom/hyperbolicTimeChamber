@@ -4,6 +4,7 @@ import elHome from '@/components/elHome'
 import elOrders from '@/components/elOrders'
 import elProduct from '@/components/elProduct'
 
+
 Vue.use(Router)
 
 export default new Router({
