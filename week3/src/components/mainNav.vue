@@ -2,9 +2,7 @@
   <header class="main-nav grid-screen">
     <ul>
       <li class="logo">Shoptime</li>
-      <li><router-link to="home">HOME</router-link></li>
-      <li><router-link to="orders">ORDERS</router-link></li>
-      <li><router-link to="product">PRODUCT</router-link></li>
+      <li v-for="item in nav" :key="item.name" :class="{'active': item.active}"><router-link :to="item.name">{{ item.title }}</router-link></li>
       <li class="auto">{{ identity }}</li>
     </ul>
 
@@ -16,8 +14,24 @@ export default {
   name: 'main-nav',
   data: function () {
     return {
-      msg: 'Welcome to Your Vue.js App',
-      identity: 'ADMIN'
+      identity: 'ADMIN',
+      nav: [
+        {
+          name: 'home',
+          title: 'HOME',
+          active: true
+        },
+        {
+          name: 'orders',
+          title: 'ORDERS',
+          active: false
+        },
+        {
+          name: 'product',
+          title: 'PRODUCT',
+          active: false
+        }
+      ]
     }
   }
 }
@@ -52,7 +66,7 @@ export default {
       cursor: pointer;
       border-bottom: solid 4px black;
       font-size: 16px;
-      &:hover:not(.logo):not(.auto) {
+      &.active:not(.logo):not(.auto) ,&:hover:not(.logo):not(.auto) {
         transition: all 1s;
         border-bottom: solid 4px white;
         color: #ffffff;

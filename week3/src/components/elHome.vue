@@ -23,11 +23,12 @@
     </div>
     <div class="business-info">
       <ul>
-        <li v-for="item in business" :key="item.name"><h3><img :src="item.img" alt="" class="icon"></h3><div class="value" :class="item.name">{{ numberFormatted(item.value) }}</div></li>
+        <li v-for="item in business" :key="item.name"><h3><img :src="item.img" alt="" class="icon">{{ item.title }}</h3><div class="value" :class="item.name">{{ numberFormatted(item.value) }}</div></li>
       </ul>
     </div>
     <div class="chart-container">
       <h3 class="title">Activity</h3>
+      <chart/>
     </div>
     <div class="downside-wrapper">
       <div class="transaction">
@@ -71,6 +72,7 @@
 </template>
 
 <script>
+import chart from '@/components/lineChart.vue'
 
 export default {
   name: 'home',
@@ -151,6 +153,9 @@ export default {
     numberFormatted (value) {
       return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     }
+  },
+  components: {
+    chart
   }
 }
 </script>
@@ -221,9 +226,11 @@ export default {
       }
       li {
         display: inline-block;
-        width: calc(100% / 3);
+        width: calc((100% -40px) / 3);
         background-color: white;
         text-align: center;
+        box-shadow: 0 0 10px 5px #EBEBEB;
+        border-radius: 3px;
         h3 {
           padding: 30px 0px 16px 0px;
         }
