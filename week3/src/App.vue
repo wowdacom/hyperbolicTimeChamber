@@ -44,6 +44,19 @@ h1, h2, h3, h4, h5, p {
 input:focus, textarea:focus select:focus {
   outline: none;
 }
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
 .grid-screen {
   padding: 0 24px;
 }
