@@ -1,38 +1,27 @@
 <template>
-    <h1>Hello</h1>
-    
+    <div class="container">
+      <div class="Chart__list">
+        <div class="Chart">
+          <h2>Linechart</h2>
+          <line-example></line-example>
+        </div>
+      </div>
+    </div>
 </template>
 
 <script>
-import VueCharts from 'vue-chartjs'
-import { Line } from 'vue-chartjs'
-
+import LineExample from './LineChart.js'
 export default {
-  extends: Line,
-  name: 'main-nav',
-  data: function () {
-    return {}
-  },
-  mounted () {
-    // Overwriting base render method with actual data.
-    console.log(Line)
-    Line.render({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-      datasets: [
-        {
-          label: 'GitHub Commits',
-          backgroundColor: '#f87979',
-          data: [40, 20, 12, 39, 10, 40, 39, 80, 40, 20, 12, 11]
-        }
-      ]
-    })
+  name: 'app',
+  components: {
+    LineExample
   }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
-.main-nav {
-
+<style>
+.container {
+  max-width: 100%;
+  margin: 0 auto;
 }
 </style>
